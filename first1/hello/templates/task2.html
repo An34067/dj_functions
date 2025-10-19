@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 	<body>
+		{% if books %}
     	<table  border="1">
 			{% for book in books %}
 				<tr>
@@ -15,5 +16,8 @@
 				</tr>
 			{% endfor %}
 		</table>
+		{% else %}
+		<p>У этого автора пока нет книг в каталоге</p>
+		{% endif %}
 	</body>
 </html>

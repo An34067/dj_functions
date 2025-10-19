@@ -16,6 +16,19 @@ def task3(request):
     avg_price = Book.objects.aggregate(avg=Avg('price'))
     return render(request, 'task3.html', {'avg': avg_price["avg"]})
 
+def task3(request):
+    total = Book.objects.count()
+    avg_price = round(Book.objects.aggregate(a=Avg('price'))['a'] or 0, 2)
+    year_range = Book.objects.aggregate(min=Min('publication_year'),max=Max('publication_year'))
+    multi_auth = Author.objects.annotate(c=Count('book')).filter(c__gt=1).order_by('-c')
+    return render(request, 'task3.html', {
+        'total': total,
+        'avg': avg_price,
+        'ymin': year_range['min'],
+        'ymax': year_range['max'],
+        'authors': multi_auth
+    })
+
 def task4(request):
     book = Book.objects.filter(
         price__gt=1000,

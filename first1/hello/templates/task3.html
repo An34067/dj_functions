@@ -2,10 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Статистика</title>
 </head>
 <body>
-    <h1>{{ avg }}</h1>
+    <h2>Общая статистика</h2>
+    <ul>
+        <li>Всего книг: {{ total }}</li>
+        <li>Средняя цена: {{ avg }}</li>
+        <li>Годы издания: от {{ ymin|default:"—" }} до {{ ymax|default:"—" }}</li>
+    </ul>
+
+    <h2>Авторы с несколькими книгами</h2>
+    {% if authors %}
+    <table border="1">
+        <thead><tr><th>Имя автора</th><th>Количество книг</th></tr></thead>
+        <tbody>
+        {% for a in authors %}
+            <tr><td>{{ a }}</td><td>{{ a.c }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Таких авторов нет</p>
+    {% endif %}
 </body>
 </html>
